@@ -15,7 +15,6 @@ docker run --name fraud-agentai -v C:\Users\pc\fraud-agentai\data:/app/data frau
 Quand tu fais docker run, Docker crée un nouveau conteneur à partir de ton image. Si ce conteneur plante (comme ton FileNotFoundError), il s'arrête, mais il n'est pas supprimé automatiquement. Il reste "sur le disque" avec son nom, ses logs, son état — un peu comme un fichier fermé mais pas effacé.
 Résultat : le nom fraud-agentai reste "réservé" par ce conteneur arrêté, donc si tu relances docker run --name fraud-agentai ..., Docker refuse car ce nom est déjà pris.
 
-Conception et mise en œuvre d'une plateforme SOC automatisée basée sur l'IA pour la détection de fraude transactionnelle et la gestion des incidents
 
 Wazuh détecte.
 Shuffle automatise et notifie.
