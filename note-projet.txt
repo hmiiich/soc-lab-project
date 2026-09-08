@@ -1,0 +1,325 @@
+machineofficiel:ping 192.168.11.105 ssh user@
+Ethernet : 192.168.56.1 /24
+vm4attaquant : 10.0.2.15  192.168.56.101
+vm2siem:10.0.2.3  192.168.11.178
+172.25.96.1    -> WSL / Hyper-V
+192.168.56.1   -> VirtualBox Host-Only
+
+docker rm -f fraud-agentai
+docker run --name fraud-agentai -v C:\Users\pc\fraud-agentai\data:/app/data fraud-agentai
+->Pourquoi le conteneur reste après un crash
+Quand tu fais docker run, Docker crée un nouveau conteneur à partir de ton image. Si ce conteneur plante (comme ton FileNotFoundError), il s'arrête, mais il n'est pas supprimé automatiquement. Il reste "sur le disque" avec son nom, ses logs, son état — un peu comme un fichier fermé mais pas effacé.
+Résultat : le nom fraud-agentai reste "réservé" par ce conteneur arrêté, donc si tu relances docker run --name fraud-agentai ..., Docker refuse car ce nom est déjà pris.
+
+Conception et mise en œuvre d'une plateforme SOC automatisée basée sur l'IA pour la détection de fraude transactionnelle et la gestion des incidents
+
+Wazuh détecte.
+Shuffle automatise et notifie.
+TheHive gère les incidents et les investigations.
+Plusieurs services bancaire soilicitent le service position.
+
+CORE BANKING => system de gestion des positions => Debit/Credit.
+python fraud_detection_model.py C:\partagekali\resultat.json
+py -3.12 fraud_detection_model.py data/mon_dataset.csv
+
+python -m pip install numpy
+pip install numpy pandas scikit-learn
+python -m pip install numpy pandas scikit-learn
+py -3.12 -m pip install numpy pandas scikit-learn
+python -m pip install numpy
+py -3.12 fraud_detection_model.py data/mon_dataset.csv
+pip install pandas numpy scikit-learn pyyaml
+```bash
+pip install pandas numpy scikit-learn
+```
+**Note pour Windows** : Si vous rencontrez des erreurs de compilation, installez les versions pré-compilées :
+```bash
+pip install --only-binary :all: pandas numpy scikit-learn
+```
+### Dépendance optionnelle (pour la configuration)
+```bash
+pip install pyyaml
+
+-------------------------------
+sudo systemctl start wazuh-indexer
+sudo systemctl start wazuh-manager
+sudo systemctl start wazuh-dashboard
+55000 → API Wazuh
+9200 → Wazuh Indexer
+443 → Dashboard Web
+installation wazuh sur vm2
+sudo apt update
+sudo apt upgrade
+curl -s0 https://packages/wazuh.com/4.7/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
+User: admin
+Password: nnwlB1xBK1VJ3Ahu6S725Yw4Ve.2SXig
+https://10.0.2.3:443
+lancement agent wazuh 
+ Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.5-1.msi -OutFile ${env.tmp}\wazuh-agent; msiexec.exe /i ${env.tmp}\wazuh-agent /q WAZUH_MANAGER='192.168.11.178' WAZUH_AGENT_NAME='fraud-agentai' WAZUH_REGISTRATION_SERVER='192.168.11.178'
+NET START WazuhSvc
+Get-Content C:\wazuh-logs\fraud-events.jsonl -First 5
+Get-Content "C:\wazuh-logs\fraud-events.jsonl" -Tail 5
+notepad "C:\Program Files (x86)\ossec-agent\ossec.conf"
+
+ '{"Client_ID":"TEST-123","Montant":999.99,"Score_Risque":95,"Niveau_Risque":"ELEVE","event_type":"anomaly_transaction","source_file":"test.json"}' | Add-Content "C:\wazuh-logs\fraud-events.jsonl"
+----------------------------
+amineaminetest233@gmail.com
+Amine.2003
+installation shuffle sur machine principale
+!docker&git doivent etre installer /https://github.com/Shuffle/Shuffle/blob/main/.github/install-guide.md
+mkdir C:\SOC-Project
+cd C:\SOC-Project
+git clone https://github.com/Shuffle/Shuffle.git
+cd shuffle
+docker compose up -d
+->shuffle : https://localhost:3443  / http://localhost:3001
+---------------------------------
+the hive  http://localhost:9002
+admin@thehive.local   secret
+- OPENSEARCH_INITIAL_ADMIN_PASSWORD=Th3Hive@2026_OpenSearch!
+admin@thehive.local  Connexion à TheHive
+Th3Hive@2026_OpenSearch!  Administration OpenSearch
+http://localhost:9002 Interface TheHive
+http://localhost:9201Service OpenSearch
+docker compose up -d
+
+remarque:La raison pour laquelle beaucoup de tutoriels utilisent Ubuntu est que :
+TheHive est principalement développé pour Linux.
+Cassandra, OpenSearch, MinIO et Cortex sont généralement déployés sur Linux en production.
+Les commandes de documentation officielle sont souvent données pour Linux.
+Plus tard, si vous installez MISP, Cortex ou Wazuh, il est souvent plus simple de travailler dans un environnement Linux.
+---------------------------------
+
+lancement dans docker : docker run --rm -v C:\Users\pc\Desktop\data:/data fraud-detection-model python fraud_detection_model.py /data/mon_dataset.csv /data/resultats.csv
+
+FraudGuard est une application de détection de fraude bancaire en temps réel qui analyse les transactions et les modifications de comptes bénéficiaires afin d'identifier les comportements suspects (ajouts massifs de bénéficiaires, transactions anormales, patterns de fraude), tout en réduisant les fausses alertes grâce à un moteur combinant règles métier et intelligence artificielle.
+
+1. Cas d'usage à couvrir
+Détection de fraude sur transactions
+Montants inhabituels par rapport à l'historique du client
+Transactions à des heures ou lieux atypiques (géolocalisation incohérente)
+Vitesse anormale (plusieurs transactions en quelques secondes/minutes)
+Transactions vers des comptes/pays à risque
+Ajout massif de bénéficiaires
+Seuil : X bénéficiaires ajoutés en Y minutes/heures → alerte
+Bénéficiaires ajoutés puis transaction immédiate (pattern classique de fraude)
+Bénéficiaires avec des IBAN/comptes déjà signalés dans une liste noire
+Réduction des fausses alertes (faux positifs)
+C'est souvent le vrai défi technique : un système trop sensible noie les analystes sous de fausses alertes
+
+Phase 0 — Préparation
+1. Vérifier les ressources de votre machine hôte
+
+RAM disponible : minimum 20 Go (idéalement 26-28 Go pour tout faire tourner en simultané)
+Espace disque : 150 Go+ libres
+Virtualisation activée dans le BIOS (VT-x/AMD-V)
+
+2. Installer le logiciel de virtualisation
+
+Télécharger et installer VMware Workstation (Windows/Linux) ou VMware Fusion (Mac)
+
+3. Télécharger les ISO nécessaires
+ISOLienUsageUbuntu Server 22.04 LTShttps://releases.ubuntu.com/22.04/VM 1, VM 2, VM 3Kali Linux (Installer)https://www.kali.org/get-kali/VM 4
+Vérifiez chaque ISO avec sha256sum comparé à la checksum officielle du site.
+
+Phase 1 — Créer les 4 VMs
+Pour chaque VM dans VMware :
+
+Créer une nouvelle VM → sélectionner l'ISO correspondante
+Allouer les ressources selon le tableau :
+
+VMOSRAMDisquevCPUVM 1 (Modèle IA)Ubuntu Server 22.048 Go40 Go2VM 2 (Wazuh)Ubuntu Server 22.048 Go50 Go2VM 3 (TheHive)Ubuntu Server 22.048 Go50 Go2VM 4 (Kali)Kali Linux2-4 Go25 Go1-2
+
+Réseau : mettez toutes les VMs sur le même réseau NAT ou Bridged pour qu'elles puissent communiquer entre elles (et VM2 ait accès internet sortant pour Shuffle)
+Installez l'OS normalement (utilisateur, mot de passe, partitionnement par défaut)
+Une fois installées, notez l'IP de chaque VM avec ip a
+
+ ---------------------------------------------->>>>>>>>  wslna hna  <<<<<<<<<<-----------------------------------------------
+Phase 2 — VM 1 : Déployer le modèle IA en API
+1. Mettre à jour et installer Docker
+bashsudo apt update && sudo apt upgrade -y
+sudo apt install -y docker.io docker-compose python3-pip
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+(déconnectez-vous/reconnectez-vous pour que le groupe docker s'applique)
+2. Transférer votre modèle sur la VM
+Depuis votre machine hôte :
+bashscp mon_modele.pkl user@<IP_VM1>:/home/user/
+3. Créer l'API FastAPI
+Créez un dossier fraud-api/ avec :
+
+main.py (charge le modèle, expose /predict)
+requirements.txt (fastapi, uvicorn, scikit-learn ou autre selon votre lib)
+Dockerfile
+
+(Si vous voulez, donnez-moi le format exact de votre modèle — je vous écris le code complet à ce moment-là.)
+4. Construire et lancer le conteneur
+bashcd fraud-api
+docker build -t fraud-api .
+docker run -d -p 8000:8000 --name fraud-api fraud-api
+5. Tester
+bashcurl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"amount": 5000, ...}'
+
+Phase 3 — VM 2 : Installer Wazuh
+1. Installation via le script officiel tout-en-un
+bashcurl -sO https://packages.wazuh.com/4.9/wazuh-install.sh
+sudo bash wazuh-install.sh -a
+Cela installe Wazuh Manager + Indexer + Dashboard en une seule commande (comptez 10-20 min).
+2. Récupérer le mot de passe admin généré
+Affiché en fin d'installation, ou :
+bashsudo tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
+3. Accéder au dashboard
+https://<IP_VM2>
+(utilisateur admin + mot de passe généré)
+4. Créer une règle de détection custom pour la fraude
+Éditez /var/ossec/etc/rules/local_rules.xml :
+xml<group name="fraud_detection,">
+  <rule id="100100" level="12">
+    <decoded_as>json</decoded_as>
+    <field name="fraud">true</field>
+    <description>Transaction bancaire frauduleuse détectée par le modèle IA</description>
+  </rule>
+</group>
+Puis redémarrez :
+bashsudo systemctl restart wazuh-manager
+5. Configurer la collecte du log de votre API
+Sur VM 1, faites en sorte que l'API écrive chaque prédiction dans un fichier (ex: /var/log/fraud-api/predictions.log), puis sur VM 2, ajoutez ce fichier comme source dans ossec.conf (<localfile>) — ou envoyez directement via l'agent Wazuh installé sur VM 1.
+
+Phase 4 — VM 3 : Installer TheHive + Cassandra + Elasticsearch
+1. Installer Docker (comme VM 1)
+2. Cloner le déploiement officiel Docker
+bashgit clone https://github.com/TheHive-Project/TheHive-docker.git
+cd TheHive-docker
+3. Lancer les services
+bashdocker-compose up -d
+Cela démarre Cassandra, Elasticsearch et TheHive ensemble.
+4. Accéder à l'interface
+http://<IP_VM3>:9000
+Identifiants par défaut : admin@thehive.local / secret (à changer immédiatement)
+5. Créer une clé API
+Dans TheHive → profil utilisateur → générer une clé API (vous en aurez besoin pour Shuffle)
+
+Phase 5 — VM 4 : Kali, générateur de transactions
+1. Préparer Python
+bashsudo apt update
+sudo apt install python3-pip -y
+pip3 install requests --break-system-packages
+2. Déposer le script générateur (celui donné précédemment), en adaptant API_URL avec l'IP de VM 1 :
+pythonAPI_URL = "http://<IP_VM1>:8000/predict"
+3. Le faire tourner en continu (service systemd)
+Créez /etc/systemd/system/fraud-generator.service :
+ini[Unit]
+Description=Fraud Transaction Generator
+
+[Service]
+ExecStart=/usr/bin/python3 /home/user/generator.py
+Restart=always
+User=user
+
+[Install]
+WantedBy=multi-user.target
+bashsudo systemctl enable --now fraud-generator
+
+Phase 6 — Shuffle : orchestration
+
+Créez un compte sur https://shuffler.io
+Créez un workflow nommé Fraude_Bancaire_Response
+Ajoutez un trigger Webhook → notez l'URL générée
+Configurez Wazuh pour envoyer les alertes vers ce webhook (via active-response script personnalisé qui fait un curl POST)
+Ajoutez l'app TheHive dans le workflow → renseignez URL + clé API de VM 3
+Ajoutez l'app Email pour la notification
+Activez le workflow (toggle "Start")
+
+
+Phase 7 — Test de bout en bout
+
+Vérifiez que fraud-generator tourne sur VM 4 (systemctl status fraud-generator)
+Sur VM 1, vérifiez les logs de l'API (docker logs fraud-api)
+Sur VM 2, ouvrez le dashboard Wazuh → onglet Security Events → vérifiez qu'une alerte apparaît
+Sur Shuffle, ouvrez l'onglet Executions → vérifiez que le workflow s'est déclenché
+Sur VM 3, ouvrez TheHive → vérifiez qu'un nouveau case est apparu avec les détails de la transaction
+Vérifiez la réception de l'email de notification
+
+Pour rendre le PFE plus intéressant
+Tu peux ajouter un scénario comme :
+Kali attaque la machine IA.
+Wazuh détecte.
+Shuffle reçoit l'alerte.
+Shuffle interroge ton modèle IA.
+Le modèle IA classe l'alerte :
+
+Faible
+Moyenne
+Critique
+
+
+Shuffle crée automatiquement un cas TheHive avec la classification IA.
+Notification à l'analyste.
+
+Cela montre l'intégration de :
+
+SIEM (Wazuh)
+SOAR (Shuffle)
+IR Platform (TheHive)
+IA de classification/analyse
+
+------------------------------------------
+deploiement thehive
+1. TheHive
+TheHive est l'application principale de gestion des incidents de sécurité (IR/SOC).
+2. Cassandra
+Rôle : base de données principale.
+TheHive stocke dans Cassandra :
+
+Les alertes
+Les cas (cases)
+Les tâches
+Les observables
+Les informations utilisateurs
+
+Pourquoi Cassandra ?
+
+Haute performance en lecture/écriture.
+Très bonne scalabilité.
+Conçue pour gérer de gros volumes de données.
+
+3. OpenSearch
+Rôle : moteur d'indexation et de recherche.
+OpenSearch permet :
+
+La recherche rapide dans les alertes et cas.
+Les filtres complexes.
+Les tableaux de bord et statistiques.
+
+Sans OpenSearch, les recherches seraient beaucoup plus lentes sur de grands environnements.
+4. MinIO
+Rôle : stockage des fichiers.
+MinIO stocke :
+
+Les pièces jointes.
+Les captures d'écran.
+Les rapports PDF.
+Tout fichier uploadé dans TheHive.
+
+Il fournit une API compatible Amazon S3, utilisée nativement par TheHive 5.
+Pourquoi utiliser Docker Compose ?
+Docker Compose permet de :
+
+Déployer tous les services d'un seul coup.
+Garantir la compatibilité des versions.
+Simplifier les mises à jour.
+Faciliter les tests et laboratoires SOC.
+---------------------------------------------
+desactivation parefeu
+Set-NetFirewallProfile -All -Enabled False
+C:\partagekali\resultat_resultat.csv  -- C:\partagekali\resultat.json ----C:\Users\pc\desktop\resultats_detection_fraude_filtres.csv -- C:\Users\pc\desktop\resultats_detection_fraude.csv
+----------------------------------------------
+
+test de communication icmp
+Windows ->kali :ping 192.168.56.101
+kali ->Windows: ping -c 4 192.168.56.1
+Adaptateur 1 : NAT          -> Internet
+Adaptateur 2 : Host-Only    -> Communication avec Windows
+eth0 (NAT) ➜ accès Internet  ->sudo nmcli device connect eth0 /sudo systemctl restart NetworkManager
+eth1 (Host-Only) ➜ communication avec l'hôte Windows
+
